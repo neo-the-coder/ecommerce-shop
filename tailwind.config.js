@@ -20,6 +20,9 @@ module.exports = {
       colors: {
         primary: '#222222',
         secondary: '#F5E6E0',
+        accent: '#FB5D1C',
+        neutral: '#999999',
+        dullRed: '#CC3300',
       },
       backgroundImage: {
         hero: "url('./img/*.svg')",
