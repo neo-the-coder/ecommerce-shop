@@ -14,10 +14,10 @@ const Header = () => {
   // const [isActive, setIsActive] = useState(false);
 
   return (
-    <header className="h-[400px]">
-      <section className="py-5 container mx-auto">
+    <header className="">
+      <section className="my-5 container mx-auto">
         <nav className="flex flex-row-reverse">
-          <ul className="flex items-center justify-center gap-4 pr-5">
+          <ul className="flex items-center justify-center gap-4">
             <li>
               <Link to={'/about'}>
                 About Us

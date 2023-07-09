@@ -10,7 +10,7 @@ import Search from './pages/Search';
 
 const App = () => {
   return (
-    <div className="overflow-hidden">
+    <div className="container mx-auto">
       <Router>
         <Header />
         <Routes>
