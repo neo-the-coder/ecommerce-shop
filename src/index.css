@@ -7,3 +7,29 @@
     @apply font-primary text-primary;
   }
 }
+
+@layer utilities {
+
+  .rating-star {
+    width: 120px;
+    height: 20px;
+    background: url('../src/img/Star-filled.svg');
+    position:relative;
+    z-index: 2;
+  }
+
+  .rating-star::before {
+    content:"";
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    width: 120px;
+    /* z-index:-1; */
+    background: url('../src/img/Star.svg');
+  }
+
+  .star-outline {
+    -webkit-text-stroke: 1px orangered;
+  }
+}

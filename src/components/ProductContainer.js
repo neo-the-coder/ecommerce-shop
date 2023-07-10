@@ -26,8 +26,8 @@ const ProductContainer = ({ products }) => {
   const sortBy = {
     featured: (a, b) => (a.id > b.id ? 1 : a.id < b.id ? -1 : 0),
     category: (a, b) => a.category.localeCompare(b.category),
-    "a-z": (a, b) => a.title.localeCompare(b.title),
-    "z-a": (a, b) => b.title.localeCompare(a.title),
+    "a-z": (a, b) => a.brand.localeCompare(b.brand),
+    "z-a": (a, b) => b.brand.localeCompare(a.brand),
     "asc-price": (a, b) =>
       a.price -
       (a.price * a.discountPercentage) / 100 -
