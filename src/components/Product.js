@@ -6,16 +6,15 @@ import { PiShoppingCartSimple, PiHeart } from "react-icons/pi";
 // import Router
 import { Link } from "react-router-dom";
 
-const Product = ({ product }) => {
+const Product = ({ product, isGrid }) => {
   // Local State
   const [isLoading, setIsLoading] = useState(true);
-
+  // Handle spinner state
   const handleLoad = () => setIsLoading(false);
 
   const {
     id,
     category,
-    brand,
     rating,
     stock,
     title,
@@ -26,77 +25,114 @@ const Product = ({ product }) => {
   } = product;
 
   return (
-    <li className="my-8 relative">
+    <li
+      className={`relative pl-5 ${
+        isGrid ? "w-1/4 flex-none h-[450px]" : "my-8"
+      }`}
+    >
       {/* <div className={`${product.discountPercentage ? "block" : "hidden"} absolute top-0 right-2 py-1 px-2 bg-accent rounded-md text-[12px] text-white`}>Sale</div> */}
-      <div className="flex justify-between gap-6">
-        <div className="flex items-center justify-center w-[300px] flex-shrink-0 p-5 border border-gray-300 rounded-md">
+      <div
+        className={`flex justify-between h-full ${
+          isGrid
+            ? "flex-col gap-4 p-5 rounded-md border border-gray-300"
+            : "flex-row gap-6"
+        }`}
+      >
+        {/* Product image container */}
+        <div
+          className={`flex items-center justify-center flex-shrink-0 rounded-md ${
+            isGrid
+              ? "w-full h-[200px]"
+              : "w-[300px] h-[300px] p-5 rounded-md border border-gray-300"
+          }`}
+        >
+          {/* Spinner while loading image */}
           {isLoading && (
             <ImSpinner2 className="w-[100px] h-[100px] p-0 animate-spin text-accent" />
           )}
-          <Link to={`/product/${id}`} className="h-full">
+          {/* Product image */}
+          <Link
+            to={`/product/${id}`}
+            className={`flex-grow h-full rounded-md bg-gray-100 ${
+              isLoading ? "hidden" : "block"
+            }`}
+          >
             <img
               src={thumbnail}
               alt={title}
-              className={`${
-                isLoading ? "hidden" : "block"
-              } w-full h-full object-cover max-h-[400px] rounded-md`}
+              className="w-full h-full object-contain rounded-md"
               onLoad={handleLoad}
             />
           </Link>
         </div>
-        <div className="flex flex-col justify-between items-start flex-grow gap-2 rounded-md hover:bg-gray-100">
-          <div className="flex-grow flex flex-col items-start justify-between">
+        {/* Product Info container */}
+        <div
+          className={`w-full flex flex-col justify-between items-start flex-grow gap-2 rounded-md`}
+        >
+          {/* Product Info Wrapper */}
+          <div
+            className={`flex-grow flex flex-col justify-between ${
+              isGrid ? "items-start" : "items-start"
+            }`}
+          >
+            {/* Title */}
             <Link
               to={`/product/${id}`}
-              className="text-xl capitalize text-black mb-1 hover:underline"
+              className={`capitalize text-black mb-1 hover:underline ${
+                isGrid ? "text-lg" : "text-xl"
+              }`}
+              title={title}
             >
-              {brand}
+              {isGrid
+                ? title.slice(0, 20) + (title.length > 20 ? "..." : "")
+                : title}
             </Link>
-            <p className="text-md text-neutral capitalize mb-3">
-              {description}
-            </p>
-            {/* <div className="w-[120px]">
-                <div style={{width: `${rating/5*100}%`}} className="bg-accent flex items-center">
-                  <span className="bg-white mix-blend-luminosity block w-6 flex-none text-2xl text-neutral star-outline">★</span>
-                  <span className="bg-white mix-blend-luminosity block w-6 flex-none text-2xl text-neutral star-outline">★</span>
-                  <span className="bg-white mix-blend-luminosity block w-6 flex-none text-2xl text-neutral star-outline">★</span>
-                  <span className="bg-white mix-blend-luminosity block w-6 flex-none text-2xl text-neutral star-outline">★</span>
-                  <span className="bg-white mix-blend-luminosity block w-6 flex-none text-2xl text-neutral star-outline">★</span>
-                </div>
-              </div> */}
-
-            {/* Price container */}
-            <div className="my-2">
-              <span>
-                $ {((price / 100) * (100 - discountPercentage)).toFixed(2)}
-              </span>
-              <span className="ml-2 line-through text-neutral">
-                $ {price.toFixed(2)}
-              </span>
-              <span className="ml-2  text-dullRed">
-                -{discountPercentage.toFixed(2)}%
-              </span>
-            </div>
+            {/* Description (List View Only) */}
+            {!isGrid && (
+              <p
+                className="text-md text-neutral capitalize mb-2"
+              >
+                {description}
+              </p>
+            )}
             {/* Product rating */}
-            <div className="flex items-center justify-start gap-2 mb-3">
-              <div className="w-[120px] flex-none overflow-hidden">
+            <div
+              className="flex items-center justify-start gap-2"
+              title={`${rating} out of 5`}
+            >
+              <div className="w-[80px] flex-none overflow-hidden">
                 <div
-                  style={{ width: `${rating * 24}px` }}
+                  style={{ width: `${rating * 16}px` }}
                   className="rating-star"
+                  // onClick={(e) => console.log(parseInt(getComputedStyle(e.target).getPropertyValue('background-size'),10))}
                 ></div>
               </div>
-              <span className="text-neutral text-sm">
+              <span className="text-neutral text-[13px] leading-[18px]">
                 ({Math.floor(price / rating)})
+              </span>
+            </div>
+            {/* Price container */}
+            <div className="mt-3 mb-1">
+              <span className="text-xl block font-semibold">
+                ${((price / 100) * (100 - discountPercentage)).toFixed(2)}
+              </span>
+              <span className="line-through text-neutral text-sm">
+                ${price.toFixed(2)}
+              </span>
+              <span className="ml-2 text-dullRed text-sm">
+                -{discountPercentage.toFixed(2)}%
               </span>
             </div>
             {/* Stock info */}
             <div className="mt-auto">
-              {stock < 20 && (
-                <p className="text-md text-dullRed font-medium">
-                  Only {stock} left
-                </p>
+              {stock <= 10 && (
+                <span className="text-sm px-1.5 text-dullRed font-medium border border-dullRed rounded-md">Only {stock} left!
+                </span>
               )}
-              <p className="text-md text-neutral capitalize">{category}</p>
+              {/* Category info (List View Only) */}
+              <Link to={`/category/${category}`} className={`block text-md text-neutral capitalize mt-0.5 hover:underline ${
+                  isGrid && "hidden"
+                }`}>{category}</Link>
             </div>
           </div>
           {/* Button container */}

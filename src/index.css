@@ -8,12 +8,19 @@
   }
 }
 
+@layer components {
+  .product-grid {
+    @apply flex flex-row flex-wrap gap-y-5
+  }
+}
+
 @layer utilities {
 
   .rating-star {
-    width: 120px;
-    height: 20px;
+    width: 80px;
+    height: 13px;
     background: url('../src/img/Star-filled.svg');
+    background-size: 16px;
     position:relative;
     z-index: 2;
   }
@@ -24,12 +31,8 @@
     top:0;
     bottom:0;
     left:0;
-    width: 120px;
-    /* z-index:-1; */
+    width: 80px;
     background: url('../src/img/Star.svg');
-  }
-
-  .star-outline {
-    -webkit-text-stroke: 1px orangered;
+    background-size: 16px;
   }
 }

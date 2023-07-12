@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // import Component
 import Product from "./Product";
 // import Icons
-import { MdGridOn } from "react-icons/md";
+import { BiSolidGrid } from "react-icons/bi"
 import { PiListBulletsBold } from "react-icons/pi";
 
 const ProductContainer = ({ products }) => {
@@ -10,10 +10,14 @@ const ProductContainer = ({ products }) => {
   const [sortValue, setSortValue] = useState(
     localStorage.getItem("sortType") || "featured"
   );
-
+  // Set sort value on selecting from a list
   const handleChange = (e) => {
     setSortValue(e.target.value);
   };
+
+  // Product view state
+  const [isGrid, setIsGrid] = useState(true);
+
 
   useEffect(() => {
     // Save the selected sorting option to local storage when the component unmounts
@@ -26,8 +30,8 @@ const ProductContainer = ({ products }) => {
   const sortBy = {
     featured: (a, b) => (a.id > b.id ? 1 : a.id < b.id ? -1 : 0),
     category: (a, b) => a.category.localeCompare(b.category),
-    "a-z": (a, b) => a.brand.localeCompare(b.brand),
-    "z-a": (a, b) => b.brand.localeCompare(a.brand),
+    "a-z": (a, b) => a.title.localeCompare(b.title),
+    "z-a": (a, b) => b.title.localeCompare(a.title),
     "asc-price": (a, b) =>
       a.price -
       (a.price * a.discountPercentage) / 100 -
@@ -42,14 +46,14 @@ const ProductContainer = ({ products }) => {
 
   return (
     <section>
-      <div className="p-2 border border-gray-300 rounded-md flex items-center">
+      <div className="p-3 ml-5 mb-8 border border-gray-300 rounded-md flex items-center">
         {/* View Buttons */}
         <div className="flex items-center justify-center gap-3">
-          <button className="p-[2px] rounded border-black border-[1.5px]">
+          <button className={`p-[2px] rounded-md border-gray-300 border ${isGrid ? 'text-accent border-accent' : 'text-primary'}`} title="Grid View" onClick={() => setIsGrid(true)}>
             {/* outline outline-accent */}
-            <MdGridOn className="w-6 h-6" />
+            <BiSolidGrid className="w-6 h-6" />
           </button>
-          <button className="p-[2px] rounded border-black border-[1.5px]">
+          <button className={`p-[2px] rounded-md border-gray-300 border ${isGrid ? 'text-primary' : 'text-accent border-accent'}`} title="List View" onClick={() => setIsGrid(false)}>
             <PiListBulletsBold className="w-6 h-6" />
           </button>
         </div>
@@ -68,10 +72,10 @@ const ProductContainer = ({ products }) => {
           </select>
         </div>
       </div>
-      <ul>
+      <ul className={`${isGrid ? 'product-grid' : 'block'}`}>
         {/* if products is available, sort them according to the sortValue */}
         {products && products.sort(sortBy[sortValue]).map((product) => {
-          return <Product key={product.id} product={product} />;
+          return <Product key={product.id} product={product} isGrid={isGrid} />;
         })}
       </ul>
     </section>
