@@ -3,14 +3,18 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // import Components
 import Header from './components/Header';
+import ScrollToTop from './components/ScrollToTop';
 // import Pages
 import Home from './pages/Home';
 import About from './pages/About';
 import Search from './pages/Search';
 
 const App = () => {
+
   return (
     <div className="container mx-auto">
+      <ScrollToTop/>
+
       <Router>
         <Header />
         <Routes>

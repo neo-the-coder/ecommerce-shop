@@ -6,26 +6,6 @@ import { BiSolidGrid } from "react-icons/bi"
 import { PiListBulletsBold } from "react-icons/pi";
 
 const ProductContainer = ({ products }) => {
-  // Local state initialized from a local storage with "featured" fallback
-  const [sortValue, setSortValue] = useState(
-    localStorage.getItem("sortType") || "featured"
-  );
-  // Set sort value on selecting from a list
-  const handleChange = (e) => {
-    setSortValue(e.target.value);
-  };
-
-  // Product view state
-  const [isGrid, setIsGrid] = useState(true);
-
-
-  useEffect(() => {
-    // Save the selected sorting option to local storage when the component unmounts
-    return () => {
-      localStorage.setItem("sortType", sortValue);
-    };
-  }, [sortValue]);
-
   // Sorting functions' object
   const sortBy = {
     featured: (a, b) => (a.id > b.id ? 1 : a.id < b.id ? -1 : 0),
@@ -43,6 +23,45 @@ const ProductContainer = ({ products }) => {
     "asc-review": (a, b) => a.rating - b.rating,
     "des-review": (a, b) => b.rating - a.rating,
   };
+  // Local state initialized from a local storage with "featured" fallback
+  const [sortValue, setSortValue] = useState(
+    localStorage.getItem("sortType") || "featured"
+    );
+    // Product view state
+    const [isGrid, setIsGrid] = useState(true);
+    // Product display count state
+    const [displayCount, setDisplayCount] = useState(20);
+    
+    // Set sort value on selecting from a list
+    const handleChange = (e) => {
+      setSortValue(e.target.value);
+  };
+
+  // Uupdate displayCount
+  useEffect(() => {
+    function loadMore() {
+      const { scrollTop, clientHeight, scrollHeight } =
+        document.documentElement;
+      // If you reach the end of the Product Container
+      // ADJUST LATER WITH FOOTER ON MIND
+      if (scrollTop + clientHeight >= scrollHeight) {
+        // If products are available and  not all are shown
+        if (products && displayCount < products.length) {
+          setDisplayCount((prevCount) => prevCount + 20);
+        }
+      }
+    }
+    document.addEventListener("scroll", loadMore);
+    console.log("SCROL PRODUICSTESEF EFFECT IS RUNNING");
+    return () => document.removeEventListener("scroll", loadMore);
+  }, [displayCount, products]);
+
+  // Save the selected sorting option to local storage when the component unmounts
+  useEffect(() => {
+    return () => {
+      localStorage.setItem("sortType", sortValue);
+    };
+  }, [sortValue]);
 
   return (
     <section>
@@ -74,7 +93,7 @@ const ProductContainer = ({ products }) => {
       </div>
       <ul className={`${isGrid ? 'product-grid' : 'block'}`}>
         {/* if products is available, sort them according to the sortValue */}
-        {products && products.sort(sortBy[sortValue]).map((product) => {
+        {products && products.sort(sortBy[sortValue]).slice(0, displayCount).map((product) => {
           return <Product key={product.id} product={product} isGrid={isGrid} />;
         })}
       </ul>
