@@ -52,7 +52,6 @@ const ProductContainer = ({ products }) => {
       }
     }
     document.addEventListener("scroll", loadMore);
-    console.log("SCROL PRODUICSTESEF EFFECT IS RUNNING");
     return () => document.removeEventListener("scroll", loadMore);
   }, [displayCount, products]);
 

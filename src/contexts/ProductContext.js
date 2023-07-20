@@ -17,7 +17,7 @@ const ProductProvider = ({ children }) => {
   //   };
   //   fetchProducts();
   // }, []);
-  console.log('context', searchResult)
+  // console.log('context', searchResult)
   return <ProductContext.Provider value={{searchResult, setSearchResult}}>{children}</ProductContext.Provider>;
 };
 

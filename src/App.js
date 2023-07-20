@@ -8,6 +8,7 @@ import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import About from './pages/About';
 import Search from './pages/Search';
+import Categories from './pages/Categories';
 
 const App = () => {
 
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/category/:type" element={<Categories />} />
           {/* <Route path='/product/:id' element={<ProductDetails/>} /> */}
         </Routes>
         {/* <SideBar /> */}

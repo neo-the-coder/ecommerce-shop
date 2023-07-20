@@ -4,11 +4,10 @@ import {Link } from 'react-router-dom';
 // import icons
 import Logo from '../img/Logo.svg';
 import CS from '../img/CSupport.svg';
-
 import {PiShoppingCartSimple, PiHeart, PiUser} from 'react-icons/pi';
-
 // import components
 import SearchBar from "./SearchBar";
+import CategoryBar from "./CategoryBar";
 
 const Header = () => {
   // const [isActive, setIsActive] = useState(false);
@@ -87,6 +86,8 @@ const Header = () => {
           </nav>
         </div>
       </section>
+      {/* Categories Navigation */}
+      <CategoryBar />
     </header>
   );
 };

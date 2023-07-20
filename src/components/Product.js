@@ -132,7 +132,7 @@ const Product = ({ product, isGrid }) => {
               {/* Category info (List View Only) */}
               <Link to={`/category/${category}`} className={`block text-md text-neutral capitalize mt-0.5 hover:underline ${
                   isGrid && "hidden"
-                }`}>{category}</Link>
+                }`}>{category.replaceAll("-", " ")}</Link>
             </div>
           </div>
           {/* Button container */}
