@@ -114,3 +114,26 @@ export const categories = {
         description: "Lighting refers to the use of artificial light to illuminate a space. It is an essential aspect of interior design, as it can affect the mood and functionality of a room. Lighting includes a wide range of products, such as lamps, chandeliers, and ceiling fixtures. With the rise of smart lighting, lighting has become more sophisticated and customizable than ever. Lighting products are available in a wide range of prices and styles, from basic and functional to high-end and luxury."
     }
 }
+
+export const categoryNames = [
+  "mens-shirts",
+  "mens-shoes",
+  "mens-watches",
+  "womens-dresses",
+  "womens-shoes",
+  "womens-watches",
+  "womens-bags",
+  "womens-jewellery",
+  "smartphones",
+  "laptops",
+  "fragrances",
+  "skincare",
+  "groceries",
+  "home-decoration",
+  "furniture",
+  "tops",
+  "sunglasses",
+  "automotive",
+  "motorcycle",
+  "lighting",
+];

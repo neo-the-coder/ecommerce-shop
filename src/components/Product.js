@@ -13,7 +13,6 @@ const Product = ({ product, isGrid }) => {
   const handleLoad = () => setIsLoading(false);
 
   const {
-    id,
     category,
     rating,
     stock,
@@ -52,7 +51,7 @@ const Product = ({ product, isGrid }) => {
           )}
           {/* Product image */}
           <Link
-            to={`/product/${id}`}
+            to={`/${category}/${title}`}
             className={`flex-grow h-full rounded-md bg-gray-100 ${
               isLoading ? "hidden" : "block"
             }`}
@@ -77,7 +76,7 @@ const Product = ({ product, isGrid }) => {
           >
             {/* Title */}
             <Link
-              to={`/product/${id}`}
+              to={`/${category}/${title}`}
               className={`capitalize text-black mb-1 hover:underline ${
                 isGrid ? "text-lg" : "text-xl"
               }`}
@@ -130,7 +129,7 @@ const Product = ({ product, isGrid }) => {
                 </span>
               )}
               {/* Category info (List View Only) */}
-              <Link to={`/category/${category}`} className={`block text-md text-neutral capitalize mt-0.5 hover:underline ${
+              <Link to={`/${category}`} className={`block text-md text-neutral capitalize mt-0.5 hover:underline ${
                   isGrid && "hidden"
                 }`}>{category.replaceAll("-", " ")}</Link>
             </div>

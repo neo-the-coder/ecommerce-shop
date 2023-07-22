@@ -36,7 +36,6 @@ function CategoryBar() {
 
   const closeHambMenu = (e) => {
     const nav = e.currentTarget.firstChild;
-    console.log(e.target)
     // if clicked area is a link OR outside nav close it
     if (e.target.tagName === 'A' || !nav.contains(e.target)) {
       setHambOpen(false);
@@ -122,7 +121,7 @@ function CategoryBar() {
                           return (
                             <li key={subCat}>
                               <Link
-                                to={`/category/${subCat}`}
+                                to={`/${subCat}`}
                                 className="block py-1 transition-colors hover:text-accent hover:underline"
                               >
                                 {categories[cat][subCat].name}
@@ -138,7 +137,7 @@ function CategoryBar() {
                 return (
                   <li key={cat} className="max-[1440px]:w-full">
                     <Link
-                      to={`/category/${cat}`}
+                      to={`/${cat}`}
                       className="block py-1.5 rounded-md capitalize transition-colors hover:text-accent hover:underline"
                     >
                       {cat.replaceAll("-", " ")}

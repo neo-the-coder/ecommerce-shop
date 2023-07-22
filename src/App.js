@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // import Components
@@ -9,6 +9,9 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Search from './pages/Search';
 import Categories from './pages/Categories';
+import ProductDetails from './pages/ProductDetails';
+// import Data
+import { categoryNames } from './data/categories';
 
 const App = () => {
 
@@ -22,8 +25,12 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/search" element={<Search />} />
-          <Route path="/category/:type" element={<Categories />} />
-          {/* <Route path='/product/:id' element={<ProductDetails/>} /> */}
+          {categoryNames.map((path, i) => (
+            <Fragment key={i}>
+              <Route exact path={`/${path}`} element={<Categories />} />
+              <Route path={`/${path}/:productSlug`} element={<ProductDetails />} />
+            </Fragment>
+          ))}
         </Routes>
         {/* <SideBar /> */}
         {/* <Footer /> */}

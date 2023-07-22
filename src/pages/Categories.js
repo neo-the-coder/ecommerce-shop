@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 // import Component
+import Breadcrumbs from "../components/Breadcrumbs";
 import ProductContainer from "../components/ProductContainer";
 //  import Data
 import { categories } from "../data/categories";
@@ -8,8 +9,8 @@ import { categories } from "../data/categories";
 const Categories = () => {
   // Local state
   const [products, setProducts] = useState([]);
-  // Get category type from query parameter
-  const {type} = useParams();
+  // Get category type from URL location
+  const type = useLocation().pathname.substring(1);
 
   const category = type.startsWith("women")
     ? categories["women"][type]
@@ -37,11 +38,12 @@ const Categories = () => {
   },[type]);
 
   return (
-    <div className="outline flex items-start">
+    <div className="shadow-xl shadow-slate-300 flex items-start">
       <section className="w-[350px]">
         Product Filters
       </section>
       <section className="w-full">
+        <Breadcrumbs />
         <h1 className="mt-5 ml-5 mb-8 pb-2 border-b border-b-neutral text-xl text-black uppercase">{type}</h1>
         <div className="overflow-hidden ml-5 my-8 p-4 rounded-md border border-gray-300">
           <img src={category.image} alt="" className="mr-5 block max-h-[200px] rounded-md float-left"/>
