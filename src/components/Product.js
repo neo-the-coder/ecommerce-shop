@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { ImSpinner2 } from "react-icons/im";
-
-// import Icons
-import { PiShoppingCartSimple, PiHeart } from "react-icons/pi";
 // import Router
 import { Link } from "react-router-dom";
+// import Icons
+import { PiShoppingCartSimple, PiHeart } from "react-icons/pi";
+import { ImSpinner2 } from "react-icons/im";
 
 const Product = ({ product, isGrid }) => {
   // Local State
@@ -51,7 +50,8 @@ const Product = ({ product, isGrid }) => {
           )}
           {/* Product image */}
           <Link
-            to={`/${category}/${title}`}
+            to={`/${category}/${title.replaceAll('/', '_')}`}
+            state={{product}}
             className={`flex-grow h-full rounded-md bg-gray-100 ${
               isLoading ? "hidden" : "block"
             }`}
@@ -76,7 +76,7 @@ const Product = ({ product, isGrid }) => {
           >
             {/* Title */}
             <Link
-              to={`/${category}/${title}`}
+              to={`/${category}/${title.replaceAll('/', '_')}`}
               className={`capitalize text-black mb-1 hover:underline ${
                 isGrid ? "text-lg" : "text-xl"
               }`}
@@ -130,7 +130,7 @@ const Product = ({ product, isGrid }) => {
               )}
               {/* Category info (List View Only) */}
               <Link to={`/${category}`} className={`block text-md text-neutral capitalize mt-0.5 hover:underline ${
-                  isGrid && "hidden"
+                  isGrid ? "hidden" : ""
                 }`}>{category.replaceAll("-", " ")}</Link>
             </div>
           </div>
